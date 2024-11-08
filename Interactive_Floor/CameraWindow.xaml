@@ -1,0 +1,9 @@
+<Window x:Class="CameraViewWindow.CameraWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Kinect Camera" Height="480" Width="640">
+    <Grid>
+        <!-- Dit is waar het Kinect-kleurbeeld wordt weergegeven -->
+        <Image Name="KinectImage" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+</Window>
