@@ -12,7 +12,7 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
 {
     public class PartialCalibrationClass
     {
-        public event Action<List<Point>> CalibrationPointsUpdated;
+        public static event Action<List<Point>> CalibrationPointsUpdated;
 
         private KinectSensor m_kinectSensor = null;
 
@@ -83,6 +83,10 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
                 Point tResult1 = kinectToProjectionPoint(m_skeletonCalibPoints[1]);
                 Point tResult2 = kinectToProjectionPoint(m_skeletonCalibPoints[2]);
                 Point tResult3 = kinectToProjectionPoint(m_skeletonCalibPoints[3]);
+
+                CalibrationPointsUpdated?.Invoke(new List<Point>{tResult0, tResult1, tResult2, tResult3});
+
+                Console.WriteLine("Calibration succesfull? (Hopefully...)");
             }
         }
 

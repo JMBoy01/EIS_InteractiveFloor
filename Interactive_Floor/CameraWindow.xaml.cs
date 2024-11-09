@@ -18,13 +18,14 @@ namespace CameraViewWindow
 
         private List<System.Windows.Point> _points = new List<System.Windows.Point>();
 
-        public CameraWindow(KinectSensor kinectSensor, PartialCalibrationClass calibration)
+        public CameraWindow(KinectSensor kinectSensor)
         {
+            
             InitializeComponent(); // Laad de UI xaml file in
             _kinectSensor = kinectSensor;
             InitializeKinect(); // Zorg ervoor dat de Kinect goed wordt ingesteld
 
-            calibration.CalibrationPointsUpdated += OnCalibrationPointsUpdated;
+            PartialCalibrationClass.CalibrationPointsUpdated += OnCalibrationPointsUpdated;
         }
 
         private void InitializeKinect()
@@ -92,9 +93,12 @@ namespace CameraViewWindow
                     // Teken een cirkel voor elke punt
                     dc.DrawEllipse(System.Windows.Media.Brushes.Red, null, points[i], 5, 5);  // 5 is de straal
 
+                    // Teken een lijn tussen elk opeenvolgende punt
+                    if (points.Count <= 1) continue; // Geen lijn tekenen als er maar 1 of geen punten zijn, of als ik op het laatste punt van de lijst ben
+
                     var point0 = points[i];
                     var point1 = points[0];
-                    if (i != points.Count - 1 && points.Count > 1) {
+                    if (i != points.Count - 1) {
                         point1 = points[i+1];
                     }
 
@@ -124,30 +128,6 @@ namespace CameraViewWindow
                 bitmap.BackBufferStride * renderBitmap.PixelHeight,
                 bitmap.BackBufferStride);
             bitmap.Unlock();
-        }
-
-        public static WriteableBitmap ConvertToWriteableBitmap(Image<Bgr, byte> image)
-        {
-            // Zorg dat de afmetingen en het format kloppen
-            WriteableBitmap writeableBitmap = new WriteableBitmap(
-                image.Width,
-                image.Height,
-                96, // DPI-X
-                96, // DPI-Y
-                PixelFormats.Bgr24, // Zorg voor hetzelfde format als Bgr
-                null);
-
-            // Converteer de afbeelding van Emgu CV naar een array van bytes
-            byte[] pixelData = image.Bytes;
-
-            // Schrijf de pixeldata naar het WriteableBitmap
-            writeableBitmap.WritePixels(
-                new Int32Rect(0, 0, image.Width, image.Height),
-                pixelData,
-                image.Width * 3, // Omdat Bgr24 3 bytes per pixel gebruikt
-                0);
-
-            return writeableBitmap;
         }
 
         private void OnCalibrationPointsUpdated(List<System.Windows.Point> calibrationPoints)

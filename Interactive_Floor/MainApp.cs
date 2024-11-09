@@ -2,6 +2,7 @@ using Microsoft.Kinect;
 using System;
 using System.Linq;
 using System.Windows;
+using GameClass;
 
 namespace Microsoft.Samples.Kinect.ControlsBasics
 {
@@ -9,12 +10,14 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
     {
         public KinectSensor m_kinectSensor = null;
         private PartialCalibrationClass calibration;
+        private Game game;
+
+        private bool calibrationPhase = true;
 
         public MainApp()
         {
             InitializeKinect();
             calibration = new PartialCalibrationClass(m_kinectSensor);
-            // LoadCalibrationPoints("calibrationPoints.xml"); DOET NOG NIKS
         }
 
         private void InitializeKinect()
@@ -42,26 +45,16 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
                     Skeleton[] skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
                     skeletonFrame.CopySkeletonDataTo(skeletons);
                     Skeleton trackedSkeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
-
-                    calibration.ProcessSkeletonFrame(trackedSkeleton);
+                    
+                    if (calibrationPhase) calibration.ProcessSkeletonFrame(trackedSkeleton);
+                    else game.ProcessSkeletonFrame(trackedSkeleton);
                 }
             }
         }
 
         public void CollectCalibrationPoint()
         {
-            // Start de kalibratieprocedure in de PartialCalibrationClass
             calibration.collectCalibrationPoint();
-        }
-
-        private void LoadCalibrationPoints(string fileName)
-        {
-            // Logica om kalibratiepunten vanuit XML te laden
-        }
-
-        public PartialCalibrationClass GetCalibrationInstance()
-        {
-            return calibration;
         }
     }
 }
