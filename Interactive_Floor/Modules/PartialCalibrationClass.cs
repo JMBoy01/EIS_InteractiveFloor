@@ -10,8 +10,10 @@ using System.Windows.Media.Media3D;
 
 namespace Microsoft.Samples.Kinect.ControlsBasics
 {
-    class PartialCalibrationClass
+    public class PartialCalibrationClass
     {
+        public event Action<List<Point>> CalibrationPointsUpdated;
+
         private KinectSensor m_kinectSensor = null;
 
         private List<Point> m_calibPoints = new List<Point>(); //2d calibration points
@@ -31,6 +33,8 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
         {
             if (m_skeletonCalibPoints.Count == m_calibPoints.Count)
             {
+                Console.WriteLine("Calibrating...");
+
                 //seketon 3D positions --> 3d positions in depth camera
                 Point3D p0 = conertSkeletonPointToDepthPoint(m_skeletonCalibPoints[0]);
                 Point3D p1 = conertSkeletonPointToDepthPoint(m_skeletonCalibPoints[1]);
@@ -122,6 +126,8 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
 
             m_skeletonCalibPoints.Add(midpoint3D);
             m_calibPoints.Add(imagePoint2D);
+
+            CalibrationPointsUpdated?.Invoke(m_calibPoints);
 
             Console.WriteLine("Calibratiepunt toegevoegd: 3D -> {0}, 2D -> {1}", midpoint3D, imagePoint2D);
 

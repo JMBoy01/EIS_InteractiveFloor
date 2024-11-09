@@ -58,5 +58,10 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
         {
             // Logica om kalibratiepunten vanuit XML te laden
         }
+
+        public PartialCalibrationClass GetCalibrationInstance()
+        {
+            return calibration;
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             // InitializeComponent();
             app = new MainApp(); // Initialiseer de Kinect en kalibratieklasse
             
-            CameraWindow cameraWindow = new CameraWindow(app.m_kinectSensor);
+            CameraWindow cameraWindow = new CameraWindow(app.m_kinectSensor, app.GetCalibrationInstance());
             cameraWindow.Show(); // Het camera-venster wordt getoond
         }
 
