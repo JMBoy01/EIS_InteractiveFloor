@@ -25,7 +25,7 @@ namespace CameraViewWindow
             _kinectSensor = kinectSensor;
             InitializeKinect(); // Zorg ervoor dat de Kinect goed wordt ingesteld
 
-            PartialCalibrationClass.CalibrationPointsUpdated += OnCalibrationPointsUpdated;
+            PartialCalibrationClass.VisualizationPointsUpdated += OnVisualizationPointsUpdated;
         }
 
         private void InitializeKinect()
@@ -130,7 +130,7 @@ namespace CameraViewWindow
             bitmap.Unlock();
         }
 
-        private void OnCalibrationPointsUpdated(List<System.Windows.Point> calibrationPoints)
+        private void OnVisualizationPointsUpdated(List<System.Windows.Point> calibrationPoints)
         {
             _points = calibrationPoints;
         }

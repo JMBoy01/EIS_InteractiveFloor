@@ -26,9 +26,7 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
 
             if (m_kinectSensor != null)
             {
-                m_kinectSensor.SkeletonStream.Enable();
                 m_kinectSensor.Start();
-                m_kinectSensor.SkeletonFrameReady += KinectSkeletonFrameReady;
             }
             else
             {
@@ -36,25 +34,28 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             }
         }
 
-        private void KinectSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+        public void CollectCalibrationPoint(Point point_2D)
         {
-            using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
-            {
-                if (skeletonFrame != null)
-                {
-                    Skeleton[] skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
-                    skeletonFrame.CopySkeletonDataTo(skeletons);
-                    Skeleton trackedSkeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
-                    
-                    if (calibrationPhase) calibration.ProcessSkeletonFrame(trackedSkeleton);
-                    else game.ProcessSkeletonFrame(trackedSkeleton);
-                }
+            calibration.collectCalibrationPoint(point_2D);
+
+            // Check als de calibratie voltooid is.
+            var transform = calibration.GetTransform();
+            if (transform != null) {
+                // calibrationPhase = false;
+
+                var groundPlaneTransform = calibration.GetGroundPlaneTransform();
+                game = new Game(m_kinectSensor, transform, groundPlaneTransform);
             }
         }
 
-        public void CollectCalibrationPoint()
+        public bool GetCalibrationPhase()
         {
-            calibration.collectCalibrationPoint();
+            return calibrationPhase;
+        }
+
+        public void SetCalibrationPhase(bool calibrationPhase)
+        {
+            this.calibrationPhase = calibrationPhase;
         }
     }
 }

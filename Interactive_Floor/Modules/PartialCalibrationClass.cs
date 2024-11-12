@@ -1,4 +1,5 @@
-﻿using Microsoft.Kinect;
+﻿using Interactive_Floor;
+using Microsoft.Kinect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,12 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
 {
     public class PartialCalibrationClass
     {
-        public static event Action<List<Point>> CalibrationPointsUpdated;
+        public static event Action<List<Point>> VisualizationPointsUpdated;
 
         private KinectSensor m_kinectSensor = null;
 
         private List<Point> m_calibPoints = new List<Point>(); //2d calibration points
+        private List<Point> m_visualizationPoints2D = new List<Point>(); //2d calibration points
         private List<SkeletonPoint> m_skeletonCalibPoints = new List<SkeletonPoint>(); //3d skeleton points
 
         private Matrix3D m_groundPlaneTransform; //step 2 transform
@@ -27,6 +29,13 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
         public PartialCalibrationClass(KinectSensor m_kinectSensor)
         {
             this.m_kinectSensor = m_kinectSensor;
+            InitializeKinect();
+        }
+
+        private void InitializeKinect()
+        {
+            m_kinectSensor.SkeletonStream.Enable();
+            m_kinectSensor.SkeletonFrameReady += KinectSkeletonFrameReady;
         }
 
         private void calibrate()
@@ -84,9 +93,11 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
                 Point tResult2 = kinectToProjectionPoint(m_skeletonCalibPoints[2]);
                 Point tResult3 = kinectToProjectionPoint(m_skeletonCalibPoints[3]);
 
-                CalibrationPointsUpdated?.Invoke(new List<Point>{tResult0, tResult1, tResult2, tResult3});
+                // TODO make check
 
                 Console.WriteLine("Calibration succesfull? (Hopefully...)");
+
+                StopCalibration();
             }
         }
 
@@ -112,7 +123,7 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             return new Point(resultPoint[0].X, resultPoint[0].Y);
         }
 
-        public void collectCalibrationPoint()
+        public void collectCalibrationPoint(Point point2D)
         {
             if (current_skeleton == null) {
                 MessageBox.Show("Geen skeleton gevonden in het frame...");
@@ -126,14 +137,15 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
                 return;
             }
 
-            Point imagePoint2D = GetImagePointFromSkeletonPoint(midpoint3D);
+            Point visualizationPoint2D = GetImagePointFromSkeletonPoint(midpoint3D);
+            m_visualizationPoints2D.Add(visualizationPoint2D);
 
             m_skeletonCalibPoints.Add(midpoint3D);
-            m_calibPoints.Add(imagePoint2D);
+            m_calibPoints.Add(point2D);
 
-            CalibrationPointsUpdated?.Invoke(m_calibPoints);
+            VisualizationPointsUpdated?.Invoke(m_visualizationPoints2D);
 
-            Console.WriteLine("Calibratiepunt toegevoegd: 3D -> {0}, 2D -> {1}", midpoint3D, imagePoint2D);
+            Console.WriteLine("Calibratiepunt toegevoegd: 3D -> {0}, 2D -> {1}", midpoint3D, point2D);
 
             if (m_skeletonCalibPoints.Count >= 4 && m_calibPoints.Count >= 4) calibrate();
         }
@@ -168,9 +180,33 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             return new Point(depthPoint.X, depthPoint.Y);
         }
 
-        public void ProcessSkeletonFrame(Skeleton trackedSkeleton)
+        public Emgu.CV.Matrix<double> GetTransform()
         {
-            current_skeleton = trackedSkeleton;
+            return m_transform;
+        }
+
+        public Matrix3D GetGroundPlaneTransform()
+        {
+            return m_groundPlaneTransform;
+        }
+
+        private void KinectSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+        {
+            using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
+            {
+                if (skeletonFrame != null)
+                {
+                    Skeleton[] skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
+                    skeletonFrame.CopySkeletonDataTo(skeletons);
+                    current_skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
+                }
+            }
+        }
+
+        public void StopCalibration()
+        {
+            m_kinectSensor.SkeletonFrameReady -= KinectSkeletonFrameReady;
+            m_kinectSensor.SkeletonStream.Disable();
         }
     }
 }
