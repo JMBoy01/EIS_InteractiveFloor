@@ -1,0 +1,67 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ferre\\eis\\test\\EIS_InteractiveFloor\\Interactive_Floor\\Interactive_Floor.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ferre\\eis\\test\\EIS_InteractiveFloor\\Interactive_Floor\\Interactive_Floor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ferre\\eis\\test\\EIS_InteractiveFloor\\Interactive_Floor\\Interactive_Floor.csproj",
+        "projectName": "Interactive_Floor",
+        "projectPath": "C:\\Users\\ferre\\eis\\test\\EIS_InteractiveFloor\\Interactive_Floor\\Interactive_Floor.csproj",
+        "packagesPath": "C:\\Users\\ferre\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ferre\\eis\\test\\EIS_InteractiveFloor\\Interactive_Floor\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ferre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "dependencies": {
+            "Emgu.CV": {
+              "target": "Package",
+              "version": "[4.8.0.5324, )"
+            },
+            "Emgu.CV.runtime.windows": {
+              "target": "Package",
+              "version": "[4.8.0.5324, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win7-x64": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

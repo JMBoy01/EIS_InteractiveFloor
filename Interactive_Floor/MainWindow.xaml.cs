@@ -4,6 +4,8 @@ using Microsoft.Kinect;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Microsoft.Samples.Kinect.ControlsBasics
 {
@@ -23,6 +25,8 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
 
             PartialCalibrationClass.VisualizationPointsUpdated += OnVisualizationPointsUpdated;
             Game.PlayerPositionsUpdated += OnPlayerPositionsUpdated;
+            Game.BallPositionUpdated += OnBallPositionUpdated;
+            Game.ScoresUpdated += OnScoresUpdated;
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -69,10 +73,16 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             CalibratePosCircle.HorizontalAlignment = horizontal;
             CalibratePosCircle.VerticalAlignment = vertical;
         }
-
-        private void OnPlayerPositionsUpdated(List<Point> player_positions)
+        private void OnScoresUpdated(int player1Score, int player2Score)
         {
-            if(app.GetCalibrationPhase()) {
+            // Update the text blocks to show the current scores
+            Player1ScoreText.Text = "Player 1: " + player1Score.ToString();
+            Player2ScoreText.Text = "Player 2: " + player2Score.ToString();
+        }
+
+        private void OnPlayerPositionsUpdated(List<Point> player_positions, List<double> torso_angles)
+        {
+            if (app.GetCalibrationPhase()) {
                 app.SetCalibrationPhase(false);
 
                 // Enable and disable elements to switch from calibration to game UI 
@@ -82,12 +92,39 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             double rect_offset_x = this.ActualWidth / 2 - PlayFieldRect.Width / 2;
             double rect_offset_y = this.ActualHeight / 2 - PlayFieldRect.Height / 2;
 
-            // TODO set position of circles
-            Canvas.SetLeft(PlayerPos1, (int)(player_positions[0].X - rect_offset_x));
-            Canvas.SetTop(PlayerPos1, (int)(player_positions[0].Y - rect_offset_y));
+            // Set the position of Player 1's rectangle (plate)
+            SetPlayerPlatePosition(PlayerPos1, player_positions[0], torso_angles[0]);
+            
+            if (player_positions.Count >= 2) {
+                // Set the position of Player 2's rectangle (plate)
+                SetPlayerPlatePosition(PlayerPos2, player_positions[1], torso_angles[1]);
+            }
+        }
 
-            Canvas.SetLeft(PlayerPos2, (int)(player_positions[1].X - rect_offset_x));
-            Canvas.SetTop(PlayerPos2, (int)(player_positions[1].Y - rect_offset_y));
+        private void SetPlayerPlatePosition(Rectangle playerPlate, Point playerPosition, double torsoAngle)
+        {
+            // Calculate the position of the plate (adjust according to the offset)
+            double plateWidth = 80;  // Width of the plate (adjust as needed)
+            double plateHeight = 15; // Height of the plate (adjust as needed)
+
+            // Set the position of the plate based on the player position
+            Canvas.SetLeft(playerPlate, playerPosition.X - plateWidth / 2);
+            Canvas.SetTop(playerPlate, playerPosition.Y - plateHeight / 2);
+
+            // Rotate the plate based on the torso angle
+            playerPlate.RenderTransform = new RotateTransform
+            {
+                Angle = torsoAngle * 180 / Math.PI, // Convert from radians to degrees
+                CenterX = plateWidth / 2,           // Set the rotation center to the center of the plate
+                CenterY = plateHeight / 2
+            };
+        }
+
+        private void OnBallPositionUpdated(Point position)
+        {
+            // Update the ball position on the canvas
+            Canvas.SetLeft(BallShape, position.X);
+            Canvas.SetTop(BallShape, position.Y);
         }
 
         private void SwitchUICalibrateTOGame()

@@ -13,9 +13,12 @@
         <Border x:Name="PlayFieldRect" Width="400" Height="200" BorderBrush="White" BorderThickness="2"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
             <Canvas x:Name="PlayerPosCanvas">
-                <Ellipse x:Name="PlayerPos1" Fill="Blue" Stroke="Blue" StrokeThickness="2" Width="15" Height="15" />
-                <Ellipse x:Name="PlayerPos2" Fill="Red" Stroke="Blue" StrokeThickness="2" Width="15" Height="15" />
+                <Rectangle x:Name="PlayerPos1" Fill="Blue" Stroke="Blue" StrokeThickness="2" Width="80" Height="15" />
+                <Rectangle x:Name="PlayerPos2" Fill="Red" Stroke="Blue" StrokeThickness="2" Width="80" Height="15" />
+                <Ellipse x:Name="BallShape" Fill="Yellow" Width="20" Height="20" />
             </Canvas>
         </Border>
+        <TextBlock x:Name="Player1ScoreText" FontSize="24" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"/>
+        <TextBlock x:Name="Player2ScoreText" FontSize="24" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0"/>
     </Grid>
 </Window>
