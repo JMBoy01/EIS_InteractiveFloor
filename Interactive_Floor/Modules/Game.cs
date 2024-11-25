@@ -27,9 +27,9 @@ namespace GameClass
 
         private Point? player1Position = null;
         private Point? player2Position = null;
-        List<double> torsoAngles = new List<double>();
+        List<double> feetAngles = new List<double>();
 
-        private SwipeRightGesture swipeRightGesture;
+        private TPoseGesture tPoseGesture;
         private RaiseHandGesture raiseHandGesture;
 
         public Game(KinectSensor m_kinectSensor, Emgu.CV.Matrix<double> transform_matrix_cam2floor, Matrix3D m_groundPlaneTransform)
@@ -38,10 +38,10 @@ namespace GameClass
             m_transform = transform_matrix_cam2floor;
             this.m_groundPlaneTransform = m_groundPlaneTransform;
 
-            swipeRightGesture = new SwipeRightGesture();
+            tPoseGesture = new TPoseGesture();
             raiseHandGesture = new RaiseHandGesture();
 
-            swipeRightGesture.GestureRecognized += OnSwipeRightGestureRecognized;
+            tPoseGesture.GestureRecognized += OnTPoseGestureRecognized;
             raiseHandGesture.GestureRecognized += OnRaiseHandGestureRecognized;
 
             InitializeKinect();
@@ -136,7 +136,7 @@ namespace GameClass
 
                     List<SkeletonPoint> midPoints = new List<SkeletonPoint>();
                     List<Point> pointsOnPlane = new List<Point>();
-                    torsoAngles.Clear();
+                    feetAngles.Clear();
 
                     // Clear the trackedSkeletons dictionary
                     trackedSkeletons.Clear();
@@ -152,17 +152,17 @@ namespace GameClass
                             Point pointOnPlane = ConvertPointKinectToScreen(midPoint);
 
                             // Calculate the torso angle based on shoulder positions
-                            var leftShoulder = skeleton.Joints[JointType.ShoulderLeft].Position;
-                            var rightShoulder = skeleton.Joints[JointType.ShoulderRight].Position;
+                            var leftFoot = skeleton.Joints[JointType.FootLeft].Position;
+                            var rightFoot = skeleton.Joints[JointType.FootRight].Position;
 
-                            double torsoAngle = Math.Atan2(rightShoulder.Y - leftShoulder.Y, rightShoulder.X - leftShoulder.X);
+                            double feetAngle = Math.Atan2(rightFoot.Y - leftFoot.Y, rightFoot.X - leftFoot.X);
 
                             // Add calculated torso angle and position to the lists
                             midPoints.Add(midPoint);
                             pointsOnPlane.Add(pointOnPlane);
-                            torsoAngles.Add(torsoAngle); // Store torso angle
+                            feetAngles.Add(feetAngle); // Store torso angle
 
-                            swipeRightGesture.Update(skeleton);
+                            tPoseGesture.Update(skeleton);
                             raiseHandGesture.Update(skeleton);
                         }
 
@@ -179,7 +179,7 @@ namespace GameClass
                         }
                         
                         // Pass midpoints, points on screen, and torso angles to the event
-                        PlayerPositionsUpdated?.Invoke(pointsOnPlane, torsoAngles);
+                        PlayerPositionsUpdated?.Invoke(pointsOnPlane, feetAngles);
                     }
 
                     GameLoop();
@@ -194,9 +194,9 @@ namespace GameClass
             Rect ballRect = ball.GetBoundingBox();
 
             // Check for player1 collision with the line
-            if (player1Position.HasValue && torsoAngles.Count > 0)
+            if (player1Position.HasValue && feetAngles.Count > 0)
             {
-                double player1Angle = torsoAngles[0];
+                double player1Angle = feetAngles[0];
                 Point player1Midpoint = player1Position.Value;
 
                 // Define line direction (40 units each side from the midpoint)
@@ -219,9 +219,9 @@ namespace GameClass
             }
 
             // Check for player2 collision with the line
-            if (player2Position.HasValue && torsoAngles.Count > 1)
+            if (player2Position.HasValue && feetAngles.Count > 1)
             {
-                double player2Angle = torsoAngles[1];
+                double player2Angle = feetAngles[1];
                 Point player2Midpoint = player2Position.Value;
 
                 // Define line direction (40 units each side from the midpoint)
@@ -244,13 +244,13 @@ namespace GameClass
             }
 
             // Check if ball passed the top or bottom
-            if (ballRect.Top <= 0)
+            if (ballRect.Left  <= 0)
             {
                 player2Score++;
                 ScoresUpdated?.Invoke(player1Score, player2Score);
                 ball.ResetBall();
             }
-            else if (ballRect.Bottom >= canvasHeight)
+            else if (ballRect.Right >= canvasWidth)
             {
                 player1Score++;
                 ScoresUpdated?.Invoke(player1Score, player2Score);
@@ -265,21 +265,28 @@ namespace GameClass
             return ballGeometry.Bounds.IntersectsWith(lineGeometry.Bounds);
         }
 
-        private void OnSwipeRightGestureRecognized(object sender, EventArgs e)
+        private void OnTPoseGestureRecognized(object sender, EventArgs e)
         {
-            Console.WriteLine("Swipe Right Gesture Recognized");
+            Console.WriteLine("TPose recognised");
+            ResetScores();
         }
 
 
         private void OnRaiseHandGestureRecognized(object sender, EventArgs e)
         {
             Console.WriteLine("Raise Hand Gesture Recognized");
+            stopGame();
         }
 
         public void StopGame()
         {
             m_kinectSensor.SkeletonFrameReady -= KinectSkeletonFrameReady;
             m_kinectSensor.SkeletonStream.Disable();
+        }
+
+        public void ResetScores(){
+            player1Score = 0;
+            player2Score = 0;
         }
     }
 }

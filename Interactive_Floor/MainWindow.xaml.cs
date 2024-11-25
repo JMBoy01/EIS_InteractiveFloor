@@ -80,7 +80,7 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             Player2ScoreText.Text = "Player 2: " + player2Score.ToString();
         }
 
-        private void OnPlayerPositionsUpdated(List<Point> player_positions, List<double> torso_angles)
+        private void OnPlayerPositionsUpdated(List<Point> player_positions, List<double> feet_angles)
         {
             if (app.GetCalibrationPhase()) {
                 app.SetCalibrationPhase(false);
@@ -93,15 +93,15 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             double rect_offset_y = this.ActualHeight / 2 - PlayFieldRect.Height / 2;
 
             // Set the position of Player 1's rectangle (plate)
-            SetPlayerPlatePosition(PlayerPos1, player_positions[0], torso_angles[0]);
+            SetPlayerPlatePosition(PlayerPos1, player_positions[0], feet_angles[0]);
             
             if (player_positions.Count >= 2) {
                 // Set the position of Player 2's rectangle (plate)
-                SetPlayerPlatePosition(PlayerPos2, player_positions[1], torso_angles[1]);
+                SetPlayerPlatePosition(PlayerPos2, player_positions[1], feet_angles[1]);
             }
         }
 
-        private void SetPlayerPlatePosition(Rectangle playerPlate, Point playerPosition, double torsoAngle)
+        private void SetPlayerPlatePosition(Rectangle playerPlate, Point playerPosition, double feetAngle)
         {
             // Calculate the position of the plate (adjust according to the offset)
             double plateWidth = 80;  // Width of the plate (adjust as needed)
@@ -114,7 +114,7 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             // Rotate the plate based on the torso angle
             playerPlate.RenderTransform = new RotateTransform
             {
-                Angle = torsoAngle * 180 / Math.PI, // Convert from radians to degrees
+                Angle = feetAngle * 180 / Math.PI, // Convert from radians to degrees
                 CenterX = plateWidth / 2,           // Set the rotation center to the center of the plate
                 CenterY = plateHeight / 2
             };

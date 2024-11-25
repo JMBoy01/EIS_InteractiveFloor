@@ -3,7 +3,7 @@ using System;
 
 namespace KinectSimpleGesture
 {
-    public class SwipeRightGesture
+    public class TPoseGesture
     {
         readonly int WINDOW_SIZE = 50;
 
@@ -14,15 +14,15 @@ namespace KinectSimpleGesture
 
         public event EventHandler GestureRecognized;
 
-        public SwipeRightGesture()
+        public TPoseGesture()
         {
-            SwipeRightSegment1 swipeRightSegment1 = new SwipeRightSegment1();
-            SwipeRightSegment2 swipeRightSegment2 = new SwipeRightSegment2();
+            TPoseSegment1 tPoseSegment1 = new TPoseSegment1();
+            TPoseSegment2 tPoseSegment2 = new TPoseSegment2();
 
             _segments = new IGestureSegment[]
             {
-                swipeRightSegment1,
-                swipeRightSegment2
+                tPoseSegment1,
+                tPoseSegment2
             };
         }
 
