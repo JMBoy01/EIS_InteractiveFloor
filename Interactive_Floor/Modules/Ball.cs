@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Microsoft.Samples.Kinect.ControlsBasics;
 
 namespace GameClass
 {
@@ -33,6 +34,8 @@ namespace GameClass
             };
 
             ResetBall();
+
+            MainWindow.WindowSizeChanged += WindowSizeChanged;
         }
 
         public void ResetBall()
@@ -43,8 +46,8 @@ namespace GameClass
 
             Random rand = new Random();
             // Minimum speed of 100 pixels per second, randomized in both X and Y directions
-            BallSpeedX = rand.Next(50, 150) * (rand.Next(2) == 0 ? 1 : -1);  // Random direction
-            BallSpeedY = rand.Next(50, 150) * (rand.Next(2) == 0 ? 1 : -1);  // Random direction
+            BallSpeedX = rand.Next(150, 200) * (rand.Next(2) == 0 ? 1 : -1);  // Random direction
+            BallSpeedY = rand.Next(150, 200) * (rand.Next(2) == 0 ? 1 : -1);  // Random direction
         }
 
         public void UpdatePosition(double deltaTime)
@@ -84,6 +87,12 @@ namespace GameClass
         private double Clamp(double value, double min, double max)
         {
             return Math.Max(min, Math.Min(value, max));
+        }
+
+        private void WindowSizeChanged(List<double> newDimensions)
+        {
+            canvasWidth = newDimensions[0];
+            canvasHeight = newDimensions[1];
         }
 
     }

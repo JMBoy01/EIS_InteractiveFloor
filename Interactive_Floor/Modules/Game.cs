@@ -4,6 +4,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using KinectSimpleGesture;
 using Microsoft.Kinect;
+using Microsoft.Samples.Kinect.ControlsBasics;
 
 namespace GameClass
 {
@@ -44,8 +45,15 @@ namespace GameClass
             tPoseGesture.GestureRecognized += OnTPoseGestureRecognized;
             raiseHandGesture.GestureRecognized += OnRaiseHandGestureRecognized;
 
+            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
+            canvasWidth = mainWindow.GetWindowDimensions()[0];
+            canvasHeight = mainWindow.GetWindowDimensions()[1];
+
             InitializeKinect();
             InitializeBall();
+
+            MainWindow.WindowSizeChanged += WindowSizeChanged;
         }
 
         private void InitializeKinect()
@@ -211,10 +219,9 @@ namespace GameClass
                 );
 
                 // Check for collision with left or right line
-                if (IsBallIntersectingWithLine(ballRect, player1Midpoint, leftLineEnd) ||
-                    IsBallIntersectingWithLine(ballRect, player1Midpoint, rightLineEnd))
+                if (IsBallIntersectingWithLine(ballRect, leftLineEnd, rightLineEnd))
                 {
-                    ball.BallSpeedY = -ball.BallSpeedY;
+                    ball.BallSpeedX = -ball.BallSpeedX;
                 }
             }
 
@@ -236,10 +243,9 @@ namespace GameClass
                 );
 
                 // Check for collision with left or right line
-                if (IsBallIntersectingWithLine(ballRect, player2Midpoint, leftLineEnd) ||
-                    IsBallIntersectingWithLine(ballRect, player2Midpoint, rightLineEnd))
+                if (IsBallIntersectingWithLine(ballRect, leftLineEnd, rightLineEnd))
                 {
-                    ball.BallSpeedY = -ball.BallSpeedY;
+                    ball.BallSpeedX = -ball.BallSpeedX;
                 }
             }
 
@@ -275,7 +281,7 @@ namespace GameClass
         private void OnRaiseHandGestureRecognized(object sender, EventArgs e)
         {
             Console.WriteLine("Raise Hand Gesture Recognized");
-            stopGame();
+            StopGame();
         }
 
         public void StopGame()
@@ -287,6 +293,13 @@ namespace GameClass
         public void ResetScores(){
             player1Score = 0;
             player2Score = 0;
+        }
+
+        private void WindowSizeChanged(List<double> newDimensions)
+        {
+            Console.WriteLine("window size changed");
+            canvasWidth = newDimensions[0];
+            canvasHeight = newDimensions[1];
         }
     }
 }

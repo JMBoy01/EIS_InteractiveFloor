@@ -2,6 +2,7 @@ using CameraViewWindow;
 using GameClass;
 using Microsoft.Kinect;
 using System;
+using System.Dynamic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,6 +12,7 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
 {
     public partial class MainWindow : Window
     {
+        public static event Action<List<double>> WindowSizeChanged;
         private MainApp app;
 
         public MainWindow()
@@ -42,6 +44,8 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
 
             PlayFieldRect.Width = newWidth;
             PlayFieldRect.Height = newHeight;
+
+            WindowSizeChanged?.Invoke(new List<double>{newWidth, newHeight});
         }
 
         private void CalibrateButton_Click(object sender, RoutedEventArgs e)
@@ -143,6 +147,11 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             {
                 app.m_kinectSensor.Stop(); // Stop de Kinect-sensor bij sluiten van venster
             }
+        }
+
+        public List<double> GetWindowDimensions()
+        {
+            return new List<double>{PlayFieldRect.Width, PlayFieldRect.Height};
         }
     }
 }

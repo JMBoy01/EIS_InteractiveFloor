@@ -41,3 +41,46 @@ c:\Users\ferre\eis\test\EIS_InteractiveFloor\Interactive_Floor\obj\Debug\net48\I
 c:\Users\ferre\eis\test\EIS_InteractiveFloor\Interactive_Floor\obj\Debug\net48\Interact.0EBD4F07.Up2Date
 c:\Users\ferre\eis\test\EIS_InteractiveFloor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.exe
 c:\Users\ferre\eis\test\EIS_InteractiveFloor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.pdb
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\Interactive_Floor.exe.config
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\Interactive_Floor.exe
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\Interactive_Floor.pdb
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\Emgu.CV.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\Microsoft.Bcl.AsyncInterfaces.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\System.Buffers.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\System.Memory.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\System.Numerics.Vectors.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\System.Runtime.CompilerServices.Unsafe.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\System.Text.Encodings.Web.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\System.Text.Json.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\System.Threading.Tasks.Extensions.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\System.ValueTuple.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\cvextern.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\opencv_videoio_ffmpeg480_64.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\concrt140.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\msvcp140.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\msvcp140_1.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\msvcp140_2.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\msvcp140_atomic_wait.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\msvcp140_codecvt_ids.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\vcruntime140.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\vcruntime140_1.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\Microsoft.Kinect.dll
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\bin\Debug\net48\Microsoft.Kinect.xml
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.csproj.AssemblyReference.cache
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.csproj.SuggestedBindingRedirects.cache
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.exe.config
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\CameraWindow.baml
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\MainWindow.baml
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\CameraWindow.g.cs
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\MainWindow.g.cs
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\App.g.cs
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor_MarkupCompile.cache
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.g.resources
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.GeneratedMSBuildEditorConfig.editorconfig
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.AssemblyInfoInputs.cache
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.AssemblyInfo.cs
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.csproj.CoreCompileInputs.cache
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.sourcelink.json
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interact.0EBD4F07.Up2Date
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.exe
+C:\School\Engineering Interactive Software\Taak 3\Interactive_Floor\Interactive_Floor\obj\Debug\net48\Interactive_Floor.pdb

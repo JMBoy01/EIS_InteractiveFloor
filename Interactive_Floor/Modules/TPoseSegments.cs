@@ -22,7 +22,7 @@ namespace KinectSimpleGesture
 
         private bool IsArmExtended(Joint shoulder, Joint elbow, Joint wrist)
         {
-            return Math.Abs(elbow.Position.Y - shoulder.Position.Y) < 0.2 && Math.Abs(wrist.Position.Y - shoulder.Position.Y) < 0.2;
+            return Math.Abs(elbow.Position.Y - shoulder.Position.Y) < 0.3 && Math.Abs(wrist.Position.Y - shoulder.Position.Y) < 0.3;
         }
     }
 
@@ -42,7 +42,7 @@ namespace KinectSimpleGesture
         private bool IsArmExtended(Joint shoulder, Joint elbow, Joint wrist)
         {
             
-            return Math.Abs(elbow.Position.Y - shoulder.Position.Y) < 0.2 && Math.Abs(wrist.Position.Y - shoulder.Position.Y) < 0.2;
+            return Math.Abs(elbow.Position.Y - shoulder.Position.Y) < 0.3 && Math.Abs(wrist.Position.Y - shoulder.Position.Y) < 0.3;
         }
     }
 }

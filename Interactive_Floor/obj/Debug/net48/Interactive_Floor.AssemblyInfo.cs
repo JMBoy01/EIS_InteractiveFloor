@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Interactive_Floor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c7af98fda5068da0939a7304d62b2d5a44db50a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+57681998ffdbb5676137e0811d691a1824f2f3e4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Interactive_Floor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Interactive_Floor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
